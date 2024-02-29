@@ -32,7 +32,7 @@ use common::*;
 use std::fs::File;
 use std::time::{Duration, Instant};
 
-const ELEMENTS: usize = 1_000_000;
+const ELEMENTS: usize = 1_000_00;
 const KEY_SIZE: usize = 24;
 const VALUE_SIZE: usize = 150;
 const RNG_SEED: u64 = 3;
@@ -259,7 +259,6 @@ async fn benchmark_surrealkv() -> Vec<(String, Duration)> {
     let tmpdir: TempDir = create_temp_directory();
     let mut opts = surrealkv::Options::new();
     opts.dir = tmpdir.path().to_path_buf();
-    opts.max_value_threshold = VALUE_SIZE;
     opts.max_tx_entries = ELEMENTS as u32;
     let db = surrealkv::Store::new(opts).unwrap();
     let table = SurrealKVBenchStore::new(&db);
